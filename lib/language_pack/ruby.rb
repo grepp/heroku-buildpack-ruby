@@ -363,7 +363,7 @@ SHELL
       installer = LanguagePack::Installers::RubyInstaller.installer(ruby_version).new(@stack)
 
       if ruby_version.build?
-        installer.fetch_unpack(ruby_version, build_ruby_path, true)
+        # installer.fetch_unpack(ruby_version, build_ruby_path, true)
       end
       installer.install(ruby_version, slug_vendor_ruby)
 
