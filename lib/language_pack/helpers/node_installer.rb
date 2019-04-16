@@ -3,7 +3,7 @@ class LanguagePack::Helpers::NodeInstaller
 
   def initialize
     nodebin = LanguagePack::Helpers::Nodebin.node_lts
-    @version = '10.15.0' # nodebin["number"]
+    @version = nodebin["number"]
     @url     = nodebin["url"]
     @fetcher = LanguagePack::Fetcher.new("")
   end
@@ -19,7 +19,8 @@ class LanguagePack::Helpers::NodeInstaller
     # helps us avoid accidentally deleting code out of the user's slug by mistake.
     Dir.mktmpdir do |dir|
       node_bin = "#{binary_path}/bin/node"
-      @fetcher.untar("/tmp/binaries/#{binary_path}", node_bin)
+      FileUtils.mkdir_p("#{dir}/#{binary_path}")
+      @fetcher.untar("/tmp/binaries/#{binary_path}", "#{dir}/#{binary_path}")
       # Dir.chdir(dir) do
       #  @fetcher.fetch_untar(@url, node_bin)
       # end

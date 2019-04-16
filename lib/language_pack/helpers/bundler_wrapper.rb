@@ -166,10 +166,16 @@ class LanguagePack::Helpers::BundlerWrapper
     instrument 'fetch_bundler' do
       return true if Dir.exists?(bundler_path)
       FileUtils.mkdir_p(bundler_path)
-      @fetcher.untar("/tmp/binaries/#{dir_name}.tgz", bundler_path)
-      # Dir.chdir(bundler_path) do
-      #  @fetcher.fetch_untar(@bundler_tar)
-      # end
+
+      # NOTE: if bundler version 2.0.1, use local binary
+      if dir_name == "bundler-2.0.1"
+        @fetcher.untar("/tmp/binaries/#{dir_name}.tgz", bundler_path)
+      else
+        Dir.chdir(bundler_path) do
+          @fetcher.fetch_untar(@bundler_tar)
+        end
+      end
+
       Dir["bin/*"].each {|path| `chmod 755 #{path}` }
     end
   end
