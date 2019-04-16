@@ -20,9 +20,10 @@ class LanguagePack::Helpers::YarnInstaller
 
   def install
     Dir.mktmpdir do |dir|
-      Dir.chdir(dir) do
-        @fetcher.fetch_untar(@url)
-      end
+      @fetcher.untar("/tmp/binaries/#{name}.tar.gz", dir)
+      # Dir.chdir(dir) do
+      #   @fetcher.fetch_untar(@url)
+      # end
 
       FileUtils.mv(File.join(dir, name), name)
     end
