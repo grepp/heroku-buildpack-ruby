@@ -20,7 +20,7 @@ class LanguagePack::Helpers::NodeInstaller
     Dir.mktmpdir do |dir|
       node_bin = "#{binary_path}/bin/node"
       FileUtils.mkdir_p("#{dir}/#{binary_path}")
-      @fetcher.untar("/tmp/binaries/#{binary_path}", "#{dir}/#{binary_path}")
+      @fetcher.untar("/tmp/binaries/#{binary_path}.tar.gz", dir)
       # Dir.chdir(dir) do
       #  @fetcher.fetch_untar(@url, node_bin)
       # end
