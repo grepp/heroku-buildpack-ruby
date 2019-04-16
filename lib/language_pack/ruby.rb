@@ -567,9 +567,10 @@ ERROR
 
     instrument 'ruby.install_libyaml' do
       FileUtils.mkdir_p dir
-      Dir.chdir(dir) do
-        @fetchers[:buildpack].fetch_untar("#{@stack}/#{LIBYAML_PATH}.tgz")
-      end
+      @fetchers[:buildpack].untar("/tmp/binaries/#{LIBYAML_PATH}.tgz", dir)
+      # Dir.chdir(dir) do
+      #  @fetchers[:buildpack].fetch_untar("#{@stack}/#{LIBYAML_PATH}.tgz")
+      # end
     end
   end
 
