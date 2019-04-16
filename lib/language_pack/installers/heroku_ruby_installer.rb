@@ -20,7 +20,9 @@ class LanguagePack::Installers::HerokuRubyInstaller
         file.sub!(ruby_vm, "#{ruby_vm}-build")
       end
       return @fetcher.fetch_untar(file) unless ruby_version.version_for_download == "ruby-#{ENV['RUBY_VERSION']}"
-      @fetcher.untar("/tmp/binaries/#{file}", "/tmp/build/vendor/ruby-#{ruby_version.version_for_download}")
+      dest_path = "/tmp/build/vendor/#{ruby_version.version_for_download}"
+      run! "mkdir -p #{dest_path}"
+      @fetcher.untar("/tmp/binaries/#{file}", dest_path)
     end
   end
 end
